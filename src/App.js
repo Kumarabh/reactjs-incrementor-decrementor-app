@@ -1,24 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import Test from './components/Test';
+import { Provider } from 'react-redux'
+import incDecStore from './stores/store';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
+import User from './scenes/users';
+import Products from './scenes/products';
+import Dashboard from './scenes/dashboard';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/users" element={<User />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/inc-dec" element={
+            <Provider store={incDecStore}>
+              <Test />
+            </Provider>
+          } 
+          />
+
+        </Routes>
+    </BrowserRouter>
+    {/* <Provider store={incDecStore}>
+    <Test />
+    </Provider> */}
+    </>
   );
 }
 
